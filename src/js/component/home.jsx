@@ -45,6 +45,7 @@ const Home = () => {
 					})
 					}
 					<li className="list-group-item list-style task-counter">{todoArray.length} items left</li>
+					<li className="list-group-item list-style" id="button-li"><button id="remove-all-btn" onClick={() => {}}>Remove all todos</button></li>
 				</ul>
 			</div>
 		</div>
