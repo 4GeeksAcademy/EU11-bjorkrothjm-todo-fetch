@@ -10,3 +10,56 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+
+h1{
+    font-size: 50px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; 
+    font-weight: lighter;
+    color: rgba(156, 54, 54, 0.434);
+ }
+ input{
+     border-color: rgba(0, 0, 0, 0.125);
+     border-width: 1px 1px 0px 1px;
+     padding: 8px 16px;
+ }
+ 
+ input:focus-visible{
+     outline: none;
+ }
+ 
+ ::placeholder{
+     color:darkgray;
+ }
+ 
+ .list-style{
+     font-family:Arial, Helvetica, sans-serif;
+     color: rgba(0, 0, 0, 0.656) !important;
+     border-radius: 0px !important;
+ }
+ 
+ .task-counter{
+     font-size: 11px;
+     padding-left: 6px;
+     color:darkgray;
+ }
+ 
+ li button{
+     border: 0;
+     padding: 0;
+     background: none;
+     float: right;
+     visibility: hidden;
+ }
+ 
+ li:hover button{
+     border: 0;
+     padding: 0;
+     background: none;
+     color:  rgba(156, 54, 54, 0.434);
+     float: right;
+     visibility: visible;
+ }
+ 
+ li button:hover{
+     color: rgba(156, 54, 54, 0.609);
+ }
