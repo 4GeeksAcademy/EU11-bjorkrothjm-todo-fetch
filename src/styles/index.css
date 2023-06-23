@@ -47,7 +47,7 @@ h1{
      border: 0;
      padding: 0;
      background: none;
-     float: right;
+     /*float: right;*/
      visibility: hidden;
  }
  
@@ -56,7 +56,7 @@ h1{
      padding: 0;
      background: none;
      color:  rgba(156, 54, 54, 0.434);
-     float: right;
+     /*float: right;*/
      visibility: visible;
  }
  
