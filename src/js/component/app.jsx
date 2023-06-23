@@ -5,18 +5,18 @@ import React, { useState, useEffect } from 'react';
 
 //create your first component
 const App = () => {
-    const emptyTodo = ["No tasks, add a task"]
-    //const emptyTodo = [ {label:"No tasks, add a task", done:true} ]
-    //console.log(emptyTodo[0][label]);
-
+    //const emptyTodo = ["No tasks, add a task"]
+    const emptyTodo = [ {label:"No tasks, add a task", done:true} ]
 	const [inputValue, setInputValue] = useState(null);
 	const [todoArray, setTodoArray] = useState(emptyTodo);
-    const [serverUrl, setServerUrl] = useState("https://assets.breatheco.de/apis/fake/todos/user/swedishchef19"); // Need to put URL in useState to be able to pass it to useEffect
+    //console.log(todoArray);
+    const [serverUrl, setServerUrl] = useState("https://assets.breatheco.de/apis/fake/todos/user/swedishchef20"); // Need to put URL in useState to be able to pass it to useEffect
 
     // A set of code that will only execute afte the first render 
     /// (Need to use a second arguement (Dependencies) to get the behaviour) -> useEffect(setup-functon, dependencies?)
     useEffect( () => {
         console.log("Running useEffect")
+        console.log("Empty todo array?", todoArray)
         console.log("serverUrl in useEffect", serverUrl)
 
         // Call the function(s)
@@ -102,68 +102,66 @@ const App = () => {
         }                
     }
 
-    // // Handling tasks being added to the To-do list
+
     const handleKeyDownApi = (event, serverUrl) => {
 		console.log(event.key);
 		if (event.key === "Enter"){
-            //if (todoArray[0]["label"] === "No tasks, add a task"){
-            if (todoArray[0] === "No tasks, add a task"){ // Old version not comp. with API data format
-                // Handling the 1st task being added 
-                // ->  Updating the current todoArray with the inputValue and then setting it to only consist of the newly added task to exclude the default "No tasks, add a task" value
-                const updatedTodo = todoArray.concat(inputValue).slice(1,todoArray.length+1);
-                setTodoArray(updatedTodo);
-                //setTodoArray(todoArray.concat(inputValue).slice(1,todoArray.length+1))
-                console.log(updatedTodo);
-                // PUT - call a function from here that updates the DB via the API
-                updateTodoDb(updatedTodo, serverUrl);
-            }else{
-                const updatedTodo = todoArray.concat(inputValue);
-                setTodoArray(updatedTodo);
-                //setTodoArray(todoArray.concat(inputValue))
-                // PUT - call a function from here that updates the DB via the API
-                console.log(todoArray)
-                updateTodoDb(updatedTodo, serverUrl);
-            }
+
+        }
+    }
+
+    // // Handling tasks being added to the To-do list
+    // const handleKeyDownApi = (event, serverUrl) => {
+	// 	console.log(event.key);
+	// 	if (event.key === "Enter"){
+            
+    //         const formatedInputValue = {label: inputValue, done:false} 
+
+    //         if (todoArray[0].label === "No tasks, add a task"){
+    //         //if (todoArray[0] === "No tasks, add a task"){ // Old version not comp. with API data format
+    //             // Handling the 1st task being added 
+    //             // ->  Updating the current todoArray with the inputValue and then setting it to only consist of the newly added task to exclude the default "No tasks, add a task" value
+                
+    //             const updatedTodo = todoArray.push(formatedInputValue).slice(1,todoArray.length+1);
+    //             setTodoArray(updatedTodo);
+    //             //setTodoArray(todoArray.concat(inputValue).slice(1,todoArray.length+1))
+    //             console.log(updatedTodo);
+    //             // PUT - call a function from here that updates the DB via the API
+    //             updateTodoDb(updatedTodo, serverUrl);
+
+    //         }else{
+    //             const updatedTodo = todoArray.push(formatedInputValue);
+    //             setTodoArray(updatedTodo);
+    //             //setTodoArray(todoArray.concat(inputValue))
+    //             // PUT - call a function from here that updates the DB via the API
+    //             console.log(todoArray)
+    //             updateTodoDb(updatedTodo, serverUrl);
+    //         }
+    //         setInputValue("");
 		
-				
-			
-			// // Same as above (without checking first array item)
-			// setTodoArray(previousState => {
-			// 	return previousState.concat(inputValue);
-			// })
-			setInputValue("");
-		};	
-	};
+	// 	};	
+	// };
+
+    const removeItem = (index, serverUrl) => {
+    }
     
-	const handleKeyDown = (event) => {
-		console.log(event.key);
-		if (event.key === "Enter"){
-			todoArray[0] === "No tasks, add a task"
-				? setTodoArray(todoArray.concat(inputValue).slice(1,todoArray.length+1))
-				: setTodoArray(todoArray.concat(inputValue))
-			
-			// // Same as above (without checking first array item)
-			// setTodoArray(previousState => {
-			// 	return previousState.concat(inputValue);
-			// })
-			setInputValue("");
-		};	
-	};
-	const removeItem = (index, serverUrl) => {
-		console.log(todoArray, index);
-		//todoArray.splice(index, 1) does not work to manipulate the state
-		// need to use Filter - to filer out (=return) values 
-		const updatedTodo = todoArray.filter((_, i) => i !== index);
-		setTodoArray(updatedTodo);
-        updateTodoDb(updatedTodo, serverUrl);
-	}
+	// const removeItem = (index, serverUrl) => {
+	// 	console.log(todoArray, index);
+	// 	//todoArray.splice(index, 1) does not work to manipulate the state
+	// 	// need to use Filter - to filer out (=return) values 
+	// 	const updatedTodo = todoArray.filter((_, i) => i !== index);
+	// 	setTodoArray(updatedTodo);
+    //     updateTodoDb(updatedTodo, serverUrl);
+	// }
 
     const removeAllItems = (serverUrl) => {
-        console.log("Clicked Remove all todos")
-        console.log(todoArray)
-        setTodoArray(["No tasks, add a task"]) // Resets the todoArray to an "empty" Array with only the "No tasks, add a task" item
-        updateTodoDb(["No tasks, add a task"], serverUrl)
     }
+    // const removeAllItems = (serverUrl) => {
+    //     console.log("Clicked Remove all todos")
+    //     console.log(todoArray)
+    //     setTodoArray(["No tasks, add a task"]) // Resets the todoArray to an "empty" Array with only the "No tasks, add a task" item
+    //     updateTodoDb(["No tasks, add a task"], serverUrl)
+    // }
 
 	return (
 		<div>
@@ -171,8 +169,9 @@ const App = () => {
 			<div className="d-flex justify-content-center">
 				<ul className="list-group w-50">
 					<input className="list-style" type="text" onChange={e => setInputValue(e.target.value)} value={inputValue} onKeyDown={handleKeyDownApi(serverUrl)} placeholder="What needs to be done?"/>
+                    
 					{todoArray.map( (item, index) => {
-						return <li className="list-group-item list-style d-inline-flex justify-content-between" key={index}>{item}
+						return <li className="list-group-item list-style d-inline-flex justify-content-between" key={index}>{item.label}
                                     
                                         <button>✅{"done:status"}</button>
                                         <button onClick={() => removeItem(index, serverUrl)}>x</button> 
