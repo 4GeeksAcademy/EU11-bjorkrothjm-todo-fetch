@@ -165,6 +165,14 @@ const AppX = () => {
         updateTodoDb( [ {label:"sample task", done: false} ], serverUrl);
     };
 
+    const taskCounter = () => {
+        if (todoArray[0].label==="sample task"){
+            return 0;
+        }else{
+            return todoArray.length;
+        };
+    };
+
     return (
 		<div>
 			<h1 className="text-center">todos</h1>
@@ -189,7 +197,7 @@ const AppX = () => {
                         }
                     })
                     }
-					<li className="list-group-item list-style task-counter">{todoArray.length} items left</li>
+					<li className="list-group-item list-style task-counter">{taskCounter()}  items left</li>
 					<li className="list-group-item list-style" id="button-li"><button id="remove-all-btn" onClick={() => removeAllItems(serverUrl)}>Remove all todos</button></li>
 				</ul>
 			</div>
