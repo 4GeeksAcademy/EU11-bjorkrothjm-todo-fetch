@@ -174,12 +174,13 @@ const AppX = () => {
                     {todoArray.map( (item, index) => {
                         console.log(item, index);
                         console.log(item.label, index);
+                        console.log(item.done, index);
                         if (item.label === "sample task"){
                             return <li className="list-group-item list-style d-inline-flex justify-content-between" key={index}>{item.label}</li>
                         }else{
                             return <li className="list-group-item list-style d-inline-flex justify-content-between" key={index}>{item.label}
 
-                                        <button>✅{"done:status"}</button>
+                                        <button>{item.done.toString()}</button>
                                         <button onClick={() => removeItem(index, serverUrl)}>x</button> 
                             
                                     </li>
