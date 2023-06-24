@@ -6,11 +6,11 @@ import React, { useState, useEffect } from 'react';
 //create your first component
 const App = () => {
     //const emptyTodo = ["No tasks, add a task"]
-    const emptyTodo = [ {label:"No tasks, add a task", done:true} ]
+    const emptyTodo = [ {label:"No tasks, add a task", done:false} ]
 	const [inputValue, setInputValue] = useState(null);
 	const [todoArray, setTodoArray] = useState(emptyTodo);
     //console.log(todoArray);
-    const [serverUrl, setServerUrl] = useState("https://assets.breatheco.de/apis/fake/todos/user/swedishchef20"); // Need to put URL in useState to be able to pass it to useEffect
+    const [serverUrl, setServerUrl] = useState("https://assets.breatheco.de/apis/fake/todos/user/swedishchef25"); // Need to put URL in useState to be able to pass it to useEffect
 
     // A set of code that will only execute afte the first render 
     /// (Need to use a second arguement (Dependencies) to get the behaviour) -> useEffect(setup-functon, dependencies?)
@@ -60,7 +60,7 @@ const App = () => {
                 console.log("Creating new User")
                 console.log("serverUrl", serverUrl)
 
-                const data = todoArray
+                const data = [] // needs to be an emptry array according to API documentation 
                 try{
                     const response = await fetch(serverUrl, {
                         method: "POST",
@@ -102,45 +102,37 @@ const App = () => {
         }                
     }
 
-
+    // Handling tasks being added to the To-do list
     const handleKeyDownApi = (event, serverUrl) => {
 		console.log(event.key);
 		if (event.key === "Enter"){
-
-        }
-    }
-
-    // // Handling tasks being added to the To-do list
-    // const handleKeyDownApi = (event, serverUrl) => {
-	// 	console.log(event.key);
-	// 	if (event.key === "Enter"){
             
-    //         const formatedInputValue = {label: inputValue, done:false} 
+            const formatedInputValue = {label: inputValue, done:false} 
 
-    //         if (todoArray[0].label === "No tasks, add a task"){
-    //         //if (todoArray[0] === "No tasks, add a task"){ // Old version not comp. with API data format
-    //             // Handling the 1st task being added 
-    //             // ->  Updating the current todoArray with the inputValue and then setting it to only consist of the newly added task to exclude the default "No tasks, add a task" value
+            if (todoArray[0].label === "No tasks, add a task"){
+            //if (todoArray[0] === "No tasks, add a task"){ // Old version not comp. with API data format
+                // Handling the 1st task being added 
+                // ->  Updating the current todoArray with the inputValue and then setting it to only consist of the newly added task to exclude the default "No tasks, add a task" value
                 
-    //             const updatedTodo = todoArray.push(formatedInputValue).slice(1,todoArray.length+1);
-    //             setTodoArray(updatedTodo);
-    //             //setTodoArray(todoArray.concat(inputValue).slice(1,todoArray.length+1))
-    //             console.log(updatedTodo);
-    //             // PUT - call a function from here that updates the DB via the API
-    //             updateTodoDb(updatedTodo, serverUrl);
+                const updatedTodo = todoArray.push(formatedInputValue).slice(1,todoArray.length+1);
+                setTodoArray(updatedTodo);
+                //setTodoArray(todoArray.concat(inputValue).slice(1,todoArray.length+1))
+                console.log(updatedTodo);
+                // PUT - call a function from here that updates the DB via the API
+                updateTodoDb(updatedTodo, serverUrl);
 
-    //         }else{
-    //             const updatedTodo = todoArray.push(formatedInputValue);
-    //             setTodoArray(updatedTodo);
-    //             //setTodoArray(todoArray.concat(inputValue))
-    //             // PUT - call a function from here that updates the DB via the API
-    //             console.log(todoArray)
-    //             updateTodoDb(updatedTodo, serverUrl);
-    //         }
-    //         setInputValue("");
+            }else{
+                const updatedTodo = todoArray.push(formatedInputValue);
+                setTodoArray(updatedTodo);
+                //setTodoArray(todoArray.concat(inputValue))
+                // PUT - call a function from here that updates the DB via the API
+                console.log(todoArray)
+                updateTodoDb(updatedTodo, serverUrl);
+            }
+            setInputValue("");
 		
-	// 	};	
-	// };
+		};	
+	};
 
     const removeItem = (index, serverUrl) => {
     }
@@ -168,17 +160,20 @@ const App = () => {
 			<h1 className="text-center">todos</h1>
 			<div className="d-flex justify-content-center">
 				<ul className="list-group w-50">
-					<input className="list-style" type="text" onChange={e => setInputValue(e.target.value)} value={inputValue} onKeyDown={handleKeyDownApi(serverUrl)} placeholder="What needs to be done?"/>
+					<input className="list-style" type="text" onChange={e => setInputValue(e.target.value)} value={inputValue} onKeyDown={handleKeyDownApi} placeholder="What needs to be done?"/>
                     
-					{todoArray.map( (item, index) => {
-						return <li className="list-group-item list-style d-inline-flex justify-content-between" key={index}>{item.label}
-                                    
+					{todoArray.map(  (item, index) => {  
+                        console.log(item, index);
+                        item.label === "sample task"
+                            ? return <li className="list-group-item list-style d-inline-flex justify-content-between" key={index}>{item.label}</li>
+                            : return <li className="list-group-item list-style d-inline-flex justify-content-between" key={index}>{item.label}
+
                                         <button>✅{"done:status"}</button>
                                         <button onClick={() => removeItem(index, serverUrl)}>x</button> 
-                                 
-                                </li>
-					})
-					}
+                            
+                                    </li>
+                        };
+                    );};
 					<li className="list-group-item list-style task-counter">{todoArray.length} items left</li>
 					<li className="list-group-item list-style" id="button-li"><button id="remove-all-btn" onClick={() => removeAllItems(serverUrl)}>Remove all todos</button></li>
 				</ul>
