@@ -179,9 +179,11 @@ const AppX = () => {
                             return <li className="list-group-item list-style d-inline-flex justify-content-between" key={index}>{item.label}</li>
                         }else{
                             return <li className="list-group-item list-style d-inline-flex justify-content-between" key={index}>{item.label}
-
+                                        
+                                        <div className="d-inline-flex justify-content-between"  style={{display:"inline", width:"10%"}}>
                                         <button>{item.done.toString()}</button>
                                         <button onClick={() => removeItem(index, serverUrl)}>x</button> 
+                                        </div>
                             
                                     </li>
                         }
