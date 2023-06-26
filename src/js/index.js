@@ -10,6 +10,7 @@ import Home from "./component/home.jsx";
 
 //import { App } from "./component/app.jsx"
 import { AppX } from "./component/appx.jsx"
+//import { MyAppX } from "./component/myappx.jsx"
 
 
 //render your react application

@@ -64,14 +64,15 @@ h1{
      color: rgba(156, 54, 54, 0.609);
  }
 
- #remove-all-btn{
+
+ .functionality-buttons{
 
     visibility: visible;
     color:  rgba(156, 54, 54, 0.434);
     float: none;
  }
 
-#remove-all-btn:hover{
+.functionality-buttons:hover{
     color: rgba(156, 54, 54, 0.609);
 }
 

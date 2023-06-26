@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 //create your first component
-const AppX = () => {
+const MyAppX = () => {
 	const [inputValue, setInputValue] = useState("");
 	const [todoArray, setTodoArray] = useState([{label:"sample task", done: false}]); // same format as new Array in API - without this the code would not run since the JSX inside the return statements runs first and only then the  
     // const [todoArray, setTodoArray] = useState([ {label:"sample task", done: false}, {label:"sample task2", done: false} ]); // for TESTING purposes - same format as new Array in API 
@@ -166,18 +166,6 @@ const AppX = () => {
         updateTodoDb( [ {label:"sample task", done: false} ], serverUrl);
     };
 
-    const deleteUser = (serverUrl) => {
-        console.log("Removing user")
-        fetch(serverUrl, {
-            method: "DELETE",
-            //body: JSON.stringify(), // no body becasue we are not sending any data
-            headers: {
-                "Content-type": "application/json"
-            }
-        });
-        setTodoArray([{label:"sample task", done: false}]);     
-    }
-
     const taskCounter = () => {
         if (todoArray[0].label==="sample task"){
             return 0;
@@ -213,7 +201,6 @@ const AppX = () => {
                     }
 					<li className="list-group-item list-style task-counter">{taskCounter()}  items left</li>
 					<li className="list-group-item list-style" id="button-li"><button class="functionality-buttons" onClick={() => removeAllItems(serverUrl)}>Remove all todos</button></li>
-                    <li className="list-group-item list-style" id="button-li"><button class="functionality-buttons" onClick={() => deleteUser(serverUrl)}>Delete User</button></li>
 				</ul>
 			</div>
 		</div>
@@ -222,4 +209,4 @@ const AppX = () => {
 
 }
 
-export { AppX }
+export { MyAppX }
